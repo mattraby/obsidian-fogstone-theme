@@ -1,10 +1,10 @@
-# Slate
+# Fogstone
 
-A soft, eye-friendly Obsidian theme inspired by the Base16 Flat palette. Named after the gray layered stone it resembles, Slate pairs muted fog-gray surfaces with desaturated accents for comfortable long-form reading in both dark and light modes.
+A soft, eye-friendly Obsidian theme inspired by the Base16 Flat palette. Fogstone pairs muted fog-gray surfaces with desaturated accents for comfortable long-form reading in both dark and light modes. The name comes from those surfaces: fog-gray in light mode, stone-gray in dark mode.
 
 ## Design philosophy
 
-**Soft over saturated.** The original Flat UI palette (`flatuicolors.com`) was designed for UI elements — buttons, badges, status bars — where colors appear in small, punchy doses. Slate takes the same hue identities but desaturates them (~40% saturation, ~65-70% lightness) so they can be used for body text, headings, and syntax highlighting without straining the eye during long reading sessions.
+**Soft over saturated.** The original Flat UI palette (`flatuicolors.com`) was designed for UI elements — buttons, badges, status bars — where colors appear in small, punchy doses. Fogstone takes the same hue identities but desaturates them (~40% saturation, ~65-70% lightness) so they can be used for body text, headings, and syntax highlighting without straining the eye during long reading sessions.
 
 **Hierarchy through color AND saturation.** Primary headings (H1, H2, H3) get cool accents (dusty blue, lavender, muted teal). Deeper headings (H4, H5, H6) fade to progressively muted grays. This communicates hierarchy through both size and color weight, rather than relying on size alone.
 
@@ -116,11 +116,11 @@ Inline code stays uniform (soft teal). Code blocks get per-token syntax highligh
 
 ## Installation
 
-Drop the `Slate` folder into your vault's `.obsidian/themes/` directory, then activate it via **Settings → Appearance → Themes → Slate**.
+Drop the `Fogstone` folder into your vault's `.obsidian/themes/` directory, then activate it via **Settings → Appearance → Themes → Fogstone**.
 
 ```shell
-# Example: copy Slate to another vault
-cp -r "/path/to/source/.obsidian/themes/Slate" "/path/to/target/.obsidian/themes/"
+# Example: copy Fogstone to another vault
+cp -r "/path/to/source/.obsidian/themes/Fogstone" "/path/to/target/.obsidian/themes/"
 ```
 
 ## Customization
