@@ -1,0 +1,785 @@
+/* ==========================================================================
+   Slate — Obsidian theme
+   A soft, eye-friendly theme inspired by the Base16 Flat palette
+   (flatuicolors.com), named after the gray layered stone it resembles.
+   Desaturated accents for comfortable long-form reading: fog-gray light
+   mode surfaces, dusty-blue primary accents, warm peach emphasis.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Base palette — the original Flat UI colors (flatuicolors.com).
+   These remain at full saturation for UI chrome: borders, focus rings,
+   callout icons, tag backgrounds, active states. They should NOT be used
+   for body text, headings, or anything you read at length.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Grayscale / backgrounds */
+  --flat-wet-asphalt:   #2C3E50;  /* base00 — main dark bg */
+  --flat-midnight:      #34495E;  /* base01 — secondary dark bg */
+  --flat-asbestos:      #7F8C8D;  /* base02 — selection */
+  --flat-concrete:      #95A5A6;  /* base03 — muted fg, comments */
+  --flat-silver:        #BDC3C7;  /* base04 — faint fg */
+  --flat-gray:          #e0e0e0;  /* base05 — default fg (dark mode) */
+  --flat-pale:          #f5f5f5;  /* base06 — lightest fg */
+  --flat-clouds:        #ECF0F1;  /* base07 — lightest bg */
+
+  /* Accents (saturated originals) — reserved for UI chrome only */
+  --flat-alizarin:      #E74C3C;  /* base08 — red */
+  --flat-carrot:        #E67E22;  /* base09 — orange */
+  --flat-sunflower:     #F1C40F;  /* base0A — yellow */
+  --flat-emerald:       #2ECC71;  /* base0B — green */
+  --flat-turquoise:     #1ABC9C;  /* base0C — cyan */
+  --flat-peter-river:   #3498DB;  /* base0D — blue */
+  --flat-amethyst:      #9B59B6;  /* base0E — purple */
+  --flat-deprecated:    #be643c;  /* base0F — brown */
+
+  /* --------------------------------------------------------------------
+     SOFT accents — desaturated (~40% sat, ~65-70% lightness) versions of
+     the Flat palette. Use these for text-facing elements: headings, bold,
+     inline code, links, body emphasis. They preserve the hue identity of
+     each Flat color while being comfortable to read at length.
+     -------------------------------------------------------------------- */
+  --flat-soft-red:      #D49486;  /* soft coral — from alizarin */
+  --flat-soft-orange:   #D7A77E;  /* warm peach — from carrot */
+  --flat-soft-yellow:   #D9C779;  /* muted gold — from sunflower */
+  --flat-soft-green:    #8FBE9C;  /* sage — from emerald */
+  --flat-soft-cyan:     #7BBCAE;  /* muted teal — from turquoise */
+  --flat-soft-blue:     #85ABD0;  /* dusty blue — from peter river */
+  --flat-soft-purple:   #AE93C2;  /* lavender — from amethyst */
+
+  /* Softer body text — slight cool tint, less harsh than pure #e0e0e0 */
+  --flat-soft-text:     #D0D4D8;
+
+  /* --------------------------------------------------------------------
+     Fog grays — soft neutral backgrounds for LIGHT mode.
+     Used in place of the near-white Flat Clouds so the interface has
+     a calm, paper-gray feel instead of harsh white.
+     -------------------------------------------------------------------- */
+  --flat-fog:          #E6E9EC;   /* primary light bg — soft gray, slight cool */
+  --flat-fog-alt:      #DFE2E5;   /* secondary light bg — sidebar, panels */
+  --flat-fog-deep:     #D7DADD;   /* active/alt state */
+  --flat-mist:         #CED2D6;   /* subtle border — low contrast vs fog */
+  --flat-mist-hover:   #B8BCC0;   /* border on hover */
+}
+
+/* --------------------------------------------------------------------------
+   DARK MODE — matches VS Code "Base16 Flat Dark"
+   -------------------------------------------------------------------------- */
+.theme-dark {
+  /* Backgrounds */
+  --background-primary:                var(--flat-wet-asphalt);
+  --background-primary-alt:            var(--flat-midnight);
+  --background-secondary:              var(--flat-midnight);
+  --background-secondary-alt:          var(--flat-wet-asphalt);
+
+  --background-modifier-border:        #3d5268;
+  --background-modifier-border-hover:  var(--flat-asbestos);
+  --background-modifier-border-focus:  var(--flat-peter-river);
+  --background-modifier-hover:         rgba(127, 140, 141, 0.25);
+  --background-modifier-active-hover:  rgba(52, 152, 219, 0.25);
+  --background-modifier-form-field:    var(--flat-wet-asphalt);
+  --background-modifier-box-shadow:    rgba(0, 0, 0, 0.5);
+  --background-modifier-cover:         rgba(44, 62, 80, 0.85);
+
+  --background-modifier-error:         var(--flat-alizarin);
+  --background-modifier-error-rgb:     231, 76, 60;
+  --background-modifier-error-hover:   #d44133;
+  --background-modifier-success:       var(--flat-emerald);
+  --background-modifier-success-rgb:   46, 204, 113;
+  --background-modifier-message:       rgba(26, 188, 156, 0.15);
+
+  /* Text — softer variants for reading comfort */
+  --text-normal:       var(--flat-soft-text);
+  --text-muted:        var(--flat-concrete);
+  --text-faint:        var(--flat-asbestos);
+  --text-on-accent:    var(--flat-clouds);
+
+  --text-accent:       var(--flat-soft-blue);
+  --text-accent-hover: #9fbddc;
+
+  --text-error:        var(--flat-alizarin);
+  --text-error-hover:  #ec7063;
+
+  --text-highlight-bg:         rgba(241, 196, 15, 0.35);  /* sunflower highlight */
+  --text-highlight-bg-active:  rgba(230, 126, 34, 0.45);  /* carrot active highlight */
+  --text-selection:            rgba(127, 140, 141, 0.5);  /* asbestos selection */
+
+  /* Interactive (buttons, controls) */
+  --interactive-normal:        var(--flat-midnight);
+  --interactive-hover:          var(--flat-asbestos);
+  --interactive-accent:         var(--flat-peter-river);
+  --interactive-accent-hover:   #5dade2;
+  --interactive-accent-rgb:     52, 152, 219;
+  --interactive-success:        var(--flat-emerald);
+
+  /* Caret */
+  --caret-color:        var(--flat-gray);
+
+  /* Scrollbar */
+  --scrollbar-bg:                 transparent;
+  --scrollbar-thumb-bg:           rgba(127, 140, 141, 0.4);
+  --scrollbar-active-thumb-bg:    rgba(189, 195, 199, 0.5);
+
+  /* Headings — SOFT cool accents fading to muted grays for deeper levels.
+     Hierarchy through size AND gentle color shift, not harsh saturation. */
+  --h1-color: var(--flat-soft-blue);    /* dusty blue — primary */
+  --h2-color: var(--flat-soft-purple);  /* lavender */
+  --h3-color: var(--flat-soft-cyan);    /* muted teal */
+  --h4-color: var(--flat-silver);       /* muted — fade starts */
+  --h5-color: var(--flat-concrete);     /* more muted */
+  --h6-color: var(--flat-asbestos);     /* most muted */
+
+  /* Code — soft syntax highlighting. Each token role gets a distinct but
+     desaturated color. Inline code stays uniform (see inline-code rule). */
+  --code-background:  var(--flat-midnight);
+  --code-normal:      var(--flat-soft-text);      /* default code fg */
+  --code-comment:     var(--flat-concrete);       /* muted italic gray */
+  --code-keyword:     var(--flat-soft-purple);    /* lavender — if, const, fn */
+  --code-string:      var(--flat-soft-green);     /* sage — "strings" */
+  --code-value:       var(--flat-soft-orange);    /* peach — numbers, bool, null */
+  --code-function:    var(--flat-soft-blue);      /* dusty blue — function names */
+  --code-property:    var(--flat-soft-blue);      /* dusty blue — obj.property */
+  --code-tag:         var(--flat-soft-red);       /* coral — HTML tags, variables */
+  --code-important:   var(--flat-soft-yellow);    /* gold — highlighted / bold */
+  --code-operator:    var(--flat-soft-text);      /* default — =, +, etc */
+  --code-punctuation: var(--flat-soft-text);      /* default — (), {}, ; */
+
+  /* Inline code — stays uniform soft teal (distinct from code blocks) */
+  --inline-code-color: var(--flat-soft-cyan);
+
+  /* Links — soft variants */
+  --link-color:            var(--flat-soft-blue);
+  --link-color-hover:      #9fbddc;
+  --link-external-color:   var(--flat-soft-cyan);
+  --link-unresolved-color: var(--flat-soft-red);
+  --link-unresolved-opacity: 0.75;
+
+  /* Tags */
+  --tag-color:       var(--flat-soft-cyan);
+  --tag-background:  rgba(123, 188, 174, 0.15);
+
+  /* Blockquote — soft blue border */
+  --blockquote-border-color: var(--flat-soft-blue);
+  --blockquote-background-color: rgba(52, 73, 94, 0.4);
+
+  /* Tables */
+  --table-header-background: var(--flat-midnight);
+  --table-row-alt-background: rgba(52, 73, 94, 0.35);
+  --table-border-color: #3d5268;
+
+  /* Extended color palette — override Obsidian's --color-* variables with
+     soft variants. Cascades to canvas cards, callouts, graph nodes, tag
+     colors, and anywhere else downstream that references these. */
+  --color-red:      var(--flat-soft-red);
+  --color-orange:   var(--flat-soft-orange);
+  --color-yellow:   var(--flat-soft-yellow);
+  --color-green:    var(--flat-soft-green);
+  --color-cyan:     var(--flat-soft-cyan);
+  --color-blue:     var(--flat-soft-blue);
+  --color-purple:   var(--flat-soft-purple);
+  --color-pink:     var(--flat-soft-red);
+
+  /* RGB variants for opacity math (Obsidian uses these in rgba(...) calls) */
+  --color-red-rgb:    212, 148, 134;
+  --color-orange-rgb: 215, 167, 126;
+  --color-yellow-rgb: 217, 199, 121;
+  --color-green-rgb:  143, 190, 156;
+  --color-cyan-rgb:   123, 188, 174;
+  --color-blue-rgb:   133, 171, 208;
+  --color-purple-rgb: 174, 147, 194;
+  --color-pink-rgb:   212, 148, 134;
+
+  /* Graph view — soft, low-contrast, legible */
+  --graph-line:              rgba(170, 175, 180, 0.3);
+  --graph-node:              var(--flat-soft-text);
+  --graph-text:              var(--flat-soft-text);
+  --graph-node-unresolved:   var(--flat-soft-red);
+  --graph-node-focused:      var(--flat-soft-orange);
+  --graph-node-tag:          var(--flat-soft-cyan);
+  --graph-node-attachment:   var(--flat-soft-purple);
+
+  /* Canvas — infinite workspace */
+  --canvas-background:       var(--flat-wet-asphalt);
+  --canvas-dot-pattern:      rgba(127, 140, 141, 0.18);
+
+  /* Callouts — use RGB triples (not hex) so Obsidian can compute
+     background tints via rgba(var(--callout-color), alpha). */
+  --callout-info:      var(--color-blue-rgb);
+  --callout-todo:      var(--color-blue-rgb);
+  --callout-note:      var(--color-blue-rgb);
+  --callout-tip:       var(--color-cyan-rgb);
+  --callout-hint:      var(--color-cyan-rgb);
+  --callout-abstract:  var(--color-cyan-rgb);
+  --callout-summary:   var(--color-cyan-rgb);
+  --callout-tldr:      var(--color-cyan-rgb);
+  --callout-success:   var(--color-green-rgb);
+  --callout-check:     var(--color-green-rgb);
+  --callout-done:      var(--color-green-rgb);
+  --callout-question:  var(--color-yellow-rgb);
+  --callout-help:      var(--color-yellow-rgb);
+  --callout-faq:       var(--color-yellow-rgb);
+  --callout-warning:   var(--color-orange-rgb);
+  --callout-caution:   var(--color-orange-rgb);
+  --callout-attention: var(--color-orange-rgb);
+  --callout-failure:   var(--color-red-rgb);
+  --callout-fail:      var(--color-red-rgb);
+  --callout-missing:   var(--color-red-rgb);
+  --callout-danger:    var(--color-red-rgb);
+  --callout-error:     var(--color-red-rgb);
+  --callout-bug:       var(--color-red-rgb);
+  --callout-example:   var(--color-purple-rgb);
+  --callout-quote:     149, 165, 166;  /* concrete gray RGB */
+  --callout-cite:      149, 165, 166;
+
+  /* Status bar */
+  --titlebar-background:         var(--flat-wet-asphalt);
+  --titlebar-background-focused: var(--flat-wet-asphalt);
+  --titlebar-text-color:         var(--flat-gray);
+  --titlebar-text-color-focused: var(--flat-gray);
+  --status-bar-background:       var(--flat-peter-river);
+  --status-bar-text-color:       var(--flat-clouds);
+}
+
+/* --------------------------------------------------------------------------
+   LIGHT MODE — matches VS Code "Base16 Flat Light"
+   -------------------------------------------------------------------------- */
+.theme-light {
+  /* Backgrounds — soft fog-gray instead of near-white */
+  --background-primary:                var(--flat-fog);       /* #E6E9EC */
+  --background-primary-alt:            var(--flat-fog-deep);  /* slightly darker */
+  --background-secondary:              var(--flat-fog-alt);   /* sidebar/panels */
+  --background-secondary-alt:          var(--flat-fog-deep);
+
+  /* Borders — low contrast against the fog background */
+  --background-modifier-border:        var(--flat-mist);       /* #CED2D6 */
+  --background-modifier-border-hover:  var(--flat-mist-hover); /* #B8BCC0 */
+  --background-modifier-border-focus:  #5A8BB5;                /* soft blue for focus */
+  --background-modifier-hover:         rgba(175, 180, 185, 0.25);
+  --background-modifier-active-hover:  rgba(90, 139, 181, 0.18);
+  --background-modifier-form-field:    #EDEFF2;                /* slightly lighter than bg for inputs */
+  --background-modifier-box-shadow:    rgba(100, 110, 120, 0.12);
+  --background-modifier-cover:         rgba(230, 233, 236, 0.85);
+
+  --background-modifier-error:         var(--flat-alizarin);
+  --background-modifier-error-rgb:     231, 76, 60;
+  --background-modifier-error-hover:   #d44133;
+  --background-modifier-success:       var(--flat-emerald);
+  --background-modifier-success-rgb:   46, 204, 113;
+
+  /* Text — light mode uses asbestos grey as the primary fg (matches VS Code) */
+  --text-normal:       var(--flat-asbestos);
+  --text-muted:        var(--flat-concrete);
+  --text-faint:        var(--flat-silver);
+  --text-on-accent:    var(--flat-clouds);
+
+  /* Slightly darker soft accents for adequate contrast on light backgrounds */
+  --text-accent:       #5A8BB5;  /* darker dusty blue */
+  --text-accent-hover: #4A7BA5;
+
+  --text-error:        var(--flat-alizarin);
+  --text-error-hover:  #c0392b;
+
+  --text-highlight-bg:         rgba(241, 196, 15, 0.4);
+  --text-highlight-bg-active:  rgba(230, 126, 34, 0.45);
+  --text-selection:            rgba(224, 224, 224, 0.7);
+
+  /* Interactive */
+  --interactive-normal:        var(--flat-pale);
+  --interactive-hover:          var(--flat-silver);
+  --interactive-accent:         var(--flat-peter-river);
+  --interactive-accent-hover:   #2980b9;
+  --interactive-accent-rgb:     52, 152, 219;
+  --interactive-success:        var(--flat-emerald);
+
+  /* Caret */
+  --caret-color:        var(--flat-asbestos);
+
+  /* Scrollbar */
+  --scrollbar-bg:                 transparent;
+  --scrollbar-thumb-bg:           rgba(189, 195, 199, 0.5);
+  --scrollbar-active-thumb-bg:    rgba(149, 165, 166, 0.6);
+
+  /* Headings — slightly darker soft variants for contrast on light bg */
+  --h1-color: #5A8BB5;              /* darker dusty blue */
+  --h2-color: #8B6FA6;              /* darker lavender */
+  --h3-color: #5A9E90;              /* darker muted teal */
+  --h4-color: var(--flat-concrete);
+  --h5-color: var(--flat-asbestos);
+  --h6-color: #5D6D7E;
+
+  /* Code — soft syntax highlighting with darker variants for light bg contrast */
+  --code-background:  var(--flat-fog-alt);     /* slightly darker than main bg */
+  --code-normal:      var(--flat-asbestos);
+  --code-comment:     var(--flat-silver);
+  --code-keyword:     #8B6FA6;   /* darker lavender */
+  --code-string:      #5C9E73;   /* darker sage */
+  --code-value:       #B8875F;   /* darker peach */
+  --code-function:    #5A8BB5;   /* darker dusty blue */
+  --code-property:    #5A8BB5;
+  --code-tag:         #B07066;   /* darker coral */
+  --code-important:   #B09A4C;   /* darker gold */
+  --code-operator:    var(--flat-asbestos);
+  --code-punctuation: var(--flat-asbestos);
+
+  /* Inline code stays uniform darker soft teal */
+  --inline-code-color: #5A9E90;
+
+  /* Links — darker soft variants */
+  --link-color:            #5A8BB5;
+  --link-color-hover:      #4A7BA5;
+  --link-external-color:   #5A9E90;
+  --link-unresolved-color: #B07066;
+  --link-unresolved-opacity: 0.75;
+
+  /* Tags */
+  --tag-color:       var(--flat-turquoise);
+  --tag-background:  rgba(26, 188, 156, 0.12);
+
+  /* Blockquote — soft blue border on fog background */
+  --blockquote-border-color: #5A8BB5;
+  --blockquote-background-color: rgba(215, 218, 221, 0.5);
+
+  /* Tables */
+  --table-header-background: var(--flat-fog-alt);
+  --table-row-alt-background: rgba(223, 226, 229, 0.5);
+  --table-border-color: var(--flat-mist);
+
+  /* Extended color palette — darker soft variants for light bg contrast */
+  --color-red:      #B07066;
+  --color-orange:   #B8875F;
+  --color-yellow:   #B09A4C;
+  --color-green:    #5C9E73;
+  --color-cyan:     #5A9E90;
+  --color-blue:     #5A8BB5;
+  --color-purple:   #8B6FA6;
+  --color-pink:     #B07066;
+
+  /* RGB variants for opacity math */
+  --color-red-rgb:    176, 112, 102;
+  --color-orange-rgb: 184, 135, 95;
+  --color-yellow-rgb: 176, 154, 76;
+  --color-green-rgb:  92, 158, 115;
+  --color-cyan-rgb:   90, 158, 144;
+  --color-blue-rgb:   90, 139, 181;
+  --color-purple-rgb: 139, 111, 166;
+  --color-pink-rgb:   176, 112, 102;
+
+  /* Graph view — darker soft for contrast on fog-gray bg */
+  --graph-line:              rgba(150, 155, 160, 0.4);
+  --graph-node:              var(--flat-asbestos);
+  --graph-text:              var(--flat-asbestos);
+  --graph-node-unresolved:   var(--color-red);
+  --graph-node-focused:      var(--color-orange);
+  --graph-node-tag:          var(--color-cyan);
+  --graph-node-attachment:   var(--color-purple);
+
+  /* Canvas */
+  --canvas-background:       var(--flat-fog);
+  --canvas-dot-pattern:      rgba(127, 140, 141, 0.2);
+
+  /* Callouts — RGB triples for Obsidian's opacity math */
+  --callout-info:      var(--color-blue-rgb);
+  --callout-todo:      var(--color-blue-rgb);
+  --callout-note:      var(--color-blue-rgb);
+  --callout-tip:       var(--color-cyan-rgb);
+  --callout-hint:      var(--color-cyan-rgb);
+  --callout-abstract:  var(--color-cyan-rgb);
+  --callout-summary:   var(--color-cyan-rgb);
+  --callout-tldr:      var(--color-cyan-rgb);
+  --callout-success:   var(--color-green-rgb);
+  --callout-check:     var(--color-green-rgb);
+  --callout-done:      var(--color-green-rgb);
+  --callout-question:  var(--color-yellow-rgb);
+  --callout-help:      var(--color-yellow-rgb);
+  --callout-faq:       var(--color-yellow-rgb);
+  --callout-warning:   var(--color-orange-rgb);
+  --callout-caution:   var(--color-orange-rgb);
+  --callout-attention: var(--color-orange-rgb);
+  --callout-failure:   var(--color-red-rgb);
+  --callout-fail:      var(--color-red-rgb);
+  --callout-missing:   var(--color-red-rgb);
+  --callout-danger:    var(--color-red-rgb);
+  --callout-error:     var(--color-red-rgb);
+  --callout-bug:       var(--color-red-rgb);
+  --callout-example:   var(--color-purple-rgb);
+  --callout-quote:     149, 165, 166;  /* concrete gray RGB */
+  --callout-cite:      149, 165, 166;
+
+  /* Status bar */
+  --titlebar-background:         var(--flat-fog-alt);
+  --titlebar-background-focused: var(--flat-fog-alt);
+  --titlebar-text-color:         var(--flat-asbestos);
+  --titlebar-text-color-focused: var(--flat-asbestos);
+  --status-bar-background:       #5A8BB5;
+  --status-bar-text-color:       var(--flat-fog);
+}
+
+/* --------------------------------------------------------------------------
+   Prism syntax highlighting (reading view) — per-token colors from soft palette
+   -------------------------------------------------------------------------- */
+
+/* Comments — muted gray italic, same for both modes */
+.markdown-rendered pre code .token.comment,
+.markdown-rendered pre code .token.prolog,
+.markdown-rendered pre code .token.doctype,
+.markdown-rendered pre code .token.cdata {
+  color: var(--flat-concrete);
+  font-style: italic;
+}
+
+/* Keywords — lavender */
+.markdown-rendered pre code .token.keyword,
+.markdown-rendered pre code .token.atrule,
+.markdown-rendered pre code .token.attr-value,
+.markdown-rendered pre code .token.rule {
+  color: var(--flat-soft-purple);
+}
+
+/* Strings & selectors — sage green */
+.markdown-rendered pre code .token.string,
+.markdown-rendered pre code .token.char,
+.markdown-rendered pre code .token.attr-value .token.punctuation,
+.markdown-rendered pre code .token.selector,
+.markdown-rendered pre code .token.inserted {
+  color: var(--flat-soft-green);
+}
+
+/* Numbers, booleans, constants — peach */
+.markdown-rendered pre code .token.number,
+.markdown-rendered pre code .token.boolean,
+.markdown-rendered pre code .token.constant,
+.markdown-rendered pre code .token.symbol {
+  color: var(--flat-soft-orange);
+}
+
+/* Functions & class names — dusty blue */
+.markdown-rendered pre code .token.function,
+.markdown-rendered pre code .token.class-name,
+.markdown-rendered pre code .token.builtin {
+  color: var(--flat-soft-blue);
+}
+
+/* Properties, attributes — dusty blue */
+.markdown-rendered pre code .token.property,
+.markdown-rendered pre code .token.attr-name {
+  color: var(--flat-soft-blue);
+}
+
+/* Tags, HTML elements, variables — coral */
+.markdown-rendered pre code .token.tag,
+.markdown-rendered pre code .token.variable,
+.markdown-rendered pre code .token.regex,
+.markdown-rendered pre code .token.deleted {
+  color: var(--flat-soft-red);
+}
+
+/* Important / marked — gold */
+.markdown-rendered pre code .token.important,
+.markdown-rendered pre code .token.bold {
+  color: var(--flat-soft-yellow);
+  font-weight: 700;
+}
+
+/* Italic tokens in code */
+.markdown-rendered pre code .token.italic {
+  font-style: italic;
+}
+
+/* Operators, punctuation, entities — default soft body text */
+.markdown-rendered pre code .token.operator,
+.markdown-rendered pre code .token.punctuation,
+.markdown-rendered pre code .token.entity,
+.markdown-rendered pre code .token.url {
+  color: var(--flat-soft-text);
+}
+
+/* Light mode — use slightly darker soft variants for contrast on white bg */
+.theme-light .markdown-rendered pre code .token.comment,
+.theme-light .markdown-rendered pre code .token.prolog,
+.theme-light .markdown-rendered pre code .token.doctype,
+.theme-light .markdown-rendered pre code .token.cdata {
+  color: var(--flat-silver);
+}
+
+.theme-light .markdown-rendered pre code .token.keyword,
+.theme-light .markdown-rendered pre code .token.atrule,
+.theme-light .markdown-rendered pre code .token.attr-value,
+.theme-light .markdown-rendered pre code .token.rule {
+  color: #8B6FA6;  /* darker lavender */
+}
+
+.theme-light .markdown-rendered pre code .token.string,
+.theme-light .markdown-rendered pre code .token.char,
+.theme-light .markdown-rendered pre code .token.selector,
+.theme-light .markdown-rendered pre code .token.inserted {
+  color: #5C9E73;  /* darker sage */
+}
+
+.theme-light .markdown-rendered pre code .token.number,
+.theme-light .markdown-rendered pre code .token.boolean,
+.theme-light .markdown-rendered pre code .token.constant,
+.theme-light .markdown-rendered pre code .token.symbol {
+  color: #B8875F;  /* darker peach */
+}
+
+.theme-light .markdown-rendered pre code .token.function,
+.theme-light .markdown-rendered pre code .token.class-name,
+.theme-light .markdown-rendered pre code .token.builtin,
+.theme-light .markdown-rendered pre code .token.property,
+.theme-light .markdown-rendered pre code .token.attr-name {
+  color: #5A8BB5;  /* darker dusty blue */
+}
+
+.theme-light .markdown-rendered pre code .token.tag,
+.theme-light .markdown-rendered pre code .token.variable,
+.theme-light .markdown-rendered pre code .token.regex,
+.theme-light .markdown-rendered pre code .token.deleted {
+  color: #B07066;  /* darker coral */
+}
+
+.theme-light .markdown-rendered pre code .token.important,
+.theme-light .markdown-rendered pre code .token.bold {
+  color: #B09A4C;  /* darker gold */
+}
+
+.theme-light .markdown-rendered pre code .token.operator,
+.theme-light .markdown-rendered pre code .token.punctuation,
+.theme-light .markdown-rendered pre code .token.entity,
+.theme-light .markdown-rendered pre code .token.url {
+  color: var(--flat-asbestos);
+}
+
+/* --------------------------------------------------------------------------
+   CodeMirror 6 (edit / Live Preview mode) — code block syntax highlighting.
+   Scoped to .HyperMD-codeblock so we don't accidentally color markdown
+   syntax tokens (which share the same .cm-keyword / .cm-string classes).
+   -------------------------------------------------------------------------- */
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-keyword {
+  color: var(--flat-soft-purple);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-string,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-string-2 {
+  color: var(--flat-soft-green);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-number,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-atom {
+  color: var(--flat-soft-orange);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-def,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-builtin {
+  color: var(--flat-soft-blue);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-property,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-attribute {
+  color: var(--flat-soft-blue);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-variable,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-variable-2,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-tag {
+  color: var(--flat-soft-red);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-type {
+  color: var(--flat-soft-yellow);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-comment {
+  color: var(--flat-concrete);
+  font-style: italic;
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-operator,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-punctuation {
+  color: var(--flat-soft-text);
+}
+
+/* --------------------------------------------------------------------------
+   Inline code — soft teal, eye-friendly
+   -------------------------------------------------------------------------- */
+
+/* Reading view: inline code (backticks) */
+.markdown-rendered code,
+.markdown-rendered :not(pre) > code {
+  color: var(--flat-soft-cyan);
+  background-color: rgba(123, 188, 174, 0.1);
+}
+
+/* Edit / Live Preview mode: CodeMirror inline code class */
+.markdown-source-view.mod-cm6 .cm-inline-code {
+  color: var(--flat-soft-cyan);
+  background-color: rgba(123, 188, 174, 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   Bold / italic — soft warm peach for bold (Nord-inspired emphasis),
+   muted gray for italic. Both desaturated for reading comfort.
+   -------------------------------------------------------------------------- */
+
+/* Reading view */
+.markdown-rendered strong,
+.markdown-rendered b {
+  color: var(--flat-soft-orange);   /* soft peach — warm but not straining */
+  font-weight: 700;
+}
+
+.markdown-rendered em,
+.markdown-rendered i {
+  color: var(--flat-concrete);      /* muted gray — subtle italic */
+  font-style: italic;
+}
+
+/* Edit / Live Preview mode: CodeMirror classes */
+.markdown-source-view.mod-cm6 .cm-strong {
+  color: var(--flat-soft-orange);
+  font-weight: 700;
+}
+
+.markdown-source-view.mod-cm6 .cm-em {
+  color: var(--flat-concrete);
+  font-style: italic;
+}
+
+/* When bold appears inside inline code, it should still stand out */
+.markdown-rendered code strong,
+.markdown-rendered code b {
+  color: var(--flat-soft-orange);
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   Small polish tweaks
+   -------------------------------------------------------------------------- */
+
+/* Code blocks: subtle border for separation */
+.markdown-rendered pre {
+  border: 1px solid var(--background-modifier-border);
+}
+
+/* Active line highlight — matches VS Code editor.lineHighlightBackground */
+.theme-dark .cm-active.cm-line {
+  background-color: rgba(52, 73, 94, 0.5);
+}
+.theme-light .cm-active.cm-line {
+  background-color: rgba(223, 226, 229, 0.6);
+}
+
+/* --------------------------------------------------------------------------
+   Graph view — structural polish beyond color variables
+   -------------------------------------------------------------------------- */
+
+/* Graph canvas background — match the note background for seamless feel */
+.theme-dark .graph-view.color-fill {
+  color: var(--flat-wet-asphalt);
+}
+.theme-light .graph-view.color-fill {
+  color: var(--flat-fog);
+}
+
+/* Slightly larger, softer node glow on hover */
+.theme-dark .graph-view.color-fill-highlight,
+.theme-light .graph-view.color-fill-highlight {
+  color: var(--color-orange);
+}
+
+/* Focused node glow uses the highlight color from --color-orange above */
+.theme-dark .graph-view.color-circle,
+.theme-light .graph-view.color-circle {
+  color: var(--color-blue);
+}
+
+/* --------------------------------------------------------------------------
+   Canvas — infinite workspace polish
+   -------------------------------------------------------------------------- */
+
+/* Canvas workspace background */
+.theme-dark .canvas-wrapper {
+  background-color: var(--canvas-background);
+}
+.theme-light .canvas-wrapper {
+  background-color: var(--canvas-background);
+}
+
+/* Canvas nodes (cards) — softer border, subtle shadow */
+.canvas-node-content-blocker,
+.canvas-node .canvas-node-container {
+  border-color: var(--background-modifier-border);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Canvas edges (arrows) — use muted text color for default */
+.theme-dark .canvas-edge path.connection-path {
+  stroke: var(--flat-concrete);
+}
+.theme-light .canvas-edge path.connection-path {
+  stroke: var(--flat-asbestos);
+}
+
+/* Canvas dot grid pattern */
+.canvas-background {
+  background-color: var(--canvas-background);
+  background-image: radial-gradient(
+    circle,
+    var(--canvas-dot-pattern) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Callouts — softer backgrounds, refined borders, polished icons
+   -------------------------------------------------------------------------- */
+
+/* Reduce the background tint intensity — Obsidian's default uses 10% opacity
+   of the callout color, which can feel loud on a soft theme. Drop to 6%. */
+.callout {
+  --callout-padding: 14px 16px;
+  --callout-radius: 6px;
+  background-color: rgba(var(--callout-color), 0.06);
+  border-left: 3px solid rgb(var(--callout-color));
+  border-radius: var(--callout-radius);
+}
+
+/* Callout title — use the callout's full color for the text/icon, but at
+   slightly reduced weight for a calmer feel */
+.callout-title {
+  padding: 0 0 4px 0;
+  font-weight: 600;
+  color: rgb(var(--callout-color));
+}
+
+/* Callout title icon — slightly smaller than default, aligned with text */
+.callout-icon {
+  flex: 0 0 auto;
+  display: flex;
+  align-self: center;
+}
+
+.callout-icon svg {
+  width: 16px;
+  height: 16px;
+  color: rgb(var(--callout-color));
+}
+
+/* Callout body text — inherit muted body text color, not the callout color */
+.callout-content {
+  color: var(--text-normal);
+}
+
+/* Fold marker (for foldable callouts) — align with icon */
+.callout-fold {
+  padding-inline-start: 8px;
+  color: var(--text-faint);
+}
+
+/* Nested callouts get a thinner border to avoid visual stacking */
+.callout .callout {
+  border-left-width: 2px;
+  margin: 8px 0;
+}
